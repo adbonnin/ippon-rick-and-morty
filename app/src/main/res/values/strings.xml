@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Rick and Morty</string>
+    <string name="validate_button">Validate</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="gender_label">Gender</string>
+    <string name="status_label">Status</string>
+    <string name="sort_and_filter_title">Sort and filter</string>
+    <string name="unknown_label">unknown</string>
+    <string name="filters_title">Filters</string>
+    <string name="error_require_character_id">Character ID can\'t be found</string>
+    <string name="error_character_not_found">Character doesn\'t exist</string>
+    <string name="error_fail_load_character">Fail to load character</string>
+    <string name="error_fail_to_load_characters">Fail to load character list</string>
+</resources>
