@@ -1,11 +1,13 @@
 package fr.adbonnin.rickandmorty.api
 
+import com.google.gson.Gson
+import fr.adbonnin.rickandmorty.model.Character
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CharacterTest {
 
-    private val gson = RickAndMortyData.buildGson()
+    private val gson = Gson()
 
     @Test
     fun `Doit parser un personnage`() {

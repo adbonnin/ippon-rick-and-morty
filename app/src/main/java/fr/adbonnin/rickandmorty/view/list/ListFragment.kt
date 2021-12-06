@@ -1,28 +1,27 @@
-package fr.adbonnin.rickandmorty.ui.list
+package fr.adbonnin.rickandmorty.view.list
 
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.api.Character
-import fr.adbonnin.rickandmorty.api.RickAndMortyService
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 private const val TAG = "ListFragment"
 
 class ListFragment : Fragment() {
 
-    private var characters: MutableList<Character> = arrayListOf()
-
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ListAdapter
+    private lateinit var adapter: CharactersAdapter
+    private lateinit var viewModel: CharactersViewModel
 
-    var selectCharacterListener = ListAdapter.OnSelectCharacterListener { }
+    var selectCharacterListener = CharactersAdapter.OnSelectCharacterListener { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,30 +29,24 @@ class ListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-        recyclerView = view.findViewById(R.id.list_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        return view
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = ListAdapter(characters, selectCharacterListener)
+        viewModel = defaultViewModelProviderFactory.create(CharactersViewModel::class.java)
+        adapter = CharactersAdapter(selectCharacterListener)
+
+        recyclerView = view.findViewById(R.id.list_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        val callback = object : RickAndMortyService.ResponseHandler<List<Character>> {
-            override fun onSuccess(value: List<Character>) {
-                characters.addAll(value)
-                adapter.notifyItemRangeInserted(0, value.size)
-            }
-
-            override fun onFailure(t: Throwable) {
-                Toast.makeText(context, getString(R.string.error_fail_to_load_characters), Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            viewModel.fetchCharacters().distinctUntilChanged().collectLatest {
+                adapter.submitData(it)
             }
         }
-
-        App.rickAndMortyService.findByPage(1, callback)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

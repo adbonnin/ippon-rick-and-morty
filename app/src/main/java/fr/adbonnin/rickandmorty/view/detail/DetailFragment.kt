@@ -1,7 +1,6 @@
-package fr.adbonnin.rickandmorty.ui.detail
+package fr.adbonnin.rickandmorty.view.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,9 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.api.Character
-import fr.adbonnin.rickandmorty.api.RickAndMortyService
-import fr.adbonnin.rickandmorty.ui.detail.DetailFragment.OnCharacterErrorListener
-
-private const val TAG = "DetailFragment"
+import fr.adbonnin.rickandmorty.data.CharacterRepository
+import fr.adbonnin.rickandmorty.view.detail.DetailFragment.OnCharacterErrorListener
+import kotlinx.coroutines.*
 
 private const val DEFAULT_CHARACTER_ID = -1
 
@@ -25,6 +22,8 @@ class DetailFragment : Fragment() {
 
     private lateinit var name: TextView
     private lateinit var image: ImageView
+
+    private lateinit var coroutineJob: Job
 
     companion object {
 
@@ -62,32 +61,21 @@ class DetailFragment : Fragment() {
     }
 
     private fun updateDetailForCharacter(characterId: Int) {
+        coroutineJob = CoroutineScope(Dispatchers.IO).launch {
+            val character = CharacterRepository().findById(characterId)
 
-        val handler = object : RickAndMortyService.ResponseHandler<Character?> {
-            override fun onSuccess(value: Character?) {
-                Log.d(TAG, value?.toString() ?: "<null>")
-                if (value == null) {
+            withContext(Dispatchers.Main) {
+                if (character == null) {
                     characterErrorListener.onCharacterError(getString(R.string.error_character_not_found))
-                    return
                 }
+                else {
+                    Picasso.get()
+                        .load(character.image)
+                        .into(image)
 
-                updateUi(value)
-            }
-
-            override fun onFailure(t: Throwable) {
-                Log.e(TAG, "Could not load character", t)
-                characterErrorListener.onCharacterError(getString(R.string.error_fail_load_character))
+                    name.text = character.name
+                }
             }
         }
-
-        App.rickAndMortyService.findById(characterId, handler)
-    }
-
-    private fun updateUi(character: Character) {
-        Picasso.get()
-            .load(character.image)
-            .into(image)
-
-        name.text = character.name
     }
 }

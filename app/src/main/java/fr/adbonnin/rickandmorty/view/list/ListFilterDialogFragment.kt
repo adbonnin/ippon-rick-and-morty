@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.ui.list
+package fr.adbonnin.rickandmorty.view.list
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -6,7 +6,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.ui.list.ListFilterDialogFragment.OnApplyListener
+import fr.adbonnin.rickandmorty.view.list.ListFilterDialogFragment.OnApplyListener
 
 class ListFilterDialogFragment : DialogFragment() {
 

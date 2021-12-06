@@ -11,4 +11,5 @@
     <string name="error_character_not_found">Character doesn\'t exist</string>
     <string name="error_fail_load_character">Fail to load character</string>
     <string name="error_fail_to_load_characters">Fail to load character list</string>
+    <string name="loadling_label">Loading</string>
 </resources>

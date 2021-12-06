@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.ui.detail
+package fr.adbonnin.rickandmorty.view.detail
 
 import android.os.Bundle
 import android.widget.Toast

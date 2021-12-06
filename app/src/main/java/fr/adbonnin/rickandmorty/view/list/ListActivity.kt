@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.ui.list
+package fr.adbonnin.rickandmorty.view.list
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.api.Character
-import fr.adbonnin.rickandmorty.ui.detail.DetailActivity
+import fr.adbonnin.rickandmorty.model.Character
+import fr.adbonnin.rickandmorty.view.detail.DetailActivity
 
 private const val TAG = "ListActivity"
 
@@ -22,7 +22,7 @@ class ListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list)
 
         listFragment = supportFragmentManager.findFragmentById(R.id.list_fragment) as ListFragment
-        listFragment.selectCharacterListener = ListAdapter.OnSelectCharacterListener(::onSelectCharacter)
+        listFragment.selectCharacterListener = CharactersAdapter.OnSelectCharacterListener(::onSelectCharacter)
     }
 
     private fun onSelectCharacter(character: Character) {
