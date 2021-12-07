@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.data.CharactersRepository
+import fr.adbonnin.rickandmorty.data.CharacterRepository
 import fr.adbonnin.rickandmorty.view.details.DetailFragment.OnCharacterErrorListener
 import kotlinx.coroutines.*
 
-private const val DEFAULT_CHARACTER_ID = -1
+private const val DEFAULT_CHARACTER_ID = "-1"
 
 class DetailFragment : Fragment() {
 
@@ -46,7 +46,7 @@ class DetailFragment : Fragment() {
 
         val intent = activity?.intent
         val characterId = if (intent?.hasExtra(App.EXTRA_CHARACTER_ID) == true) {
-            intent.getIntExtra(App.EXTRA_CHARACTER_ID, DEFAULT_CHARACTER_ID)
+            intent.getStringExtra(App.EXTRA_CHARACTER_ID) ?: DEFAULT_CHARACTER_ID
         }
         else {
             DEFAULT_CHARACTER_ID
@@ -60,9 +60,9 @@ class DetailFragment : Fragment() {
         updateDetailForCharacter(characterId)
     }
 
-    private fun updateDetailForCharacter(characterId: Int) {
+    private fun updateDetailForCharacter(characterId: String) {
         coroutineJob = CoroutineScope(Dispatchers.IO).launch {
-            val character = CharactersRepository().getCharacterById(characterId)
+            val character = CharacterRepository().getCharacterById(characterId)
 
             withContext(Dispatchers.Main) {
                 if (character == null) {

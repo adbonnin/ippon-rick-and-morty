@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.apollographql.apollo'
 }
 
 android {
@@ -37,7 +38,8 @@ android {
 }
 
 dependencies {
-    def retrofitVersion = "2.9.0"
+    def retrofitVersion = '2.9.0'
+    def apolloVersion = '2.5.11'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
@@ -56,8 +58,19 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.9'
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    implementation("com.apollographql.apollo:apollo-runtime:$apolloVersion")
+    implementation("com.apollographql.apollo:apollo-coroutines-support:$apolloVersion")
+
     // Test dependencies
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+apollo {
+    generateKotlinModels.set(true)
+
+    customTypeMapping = [
+            "Character": "fr.adbonnin.rickandmorty.model.Character"
+    ]
 }

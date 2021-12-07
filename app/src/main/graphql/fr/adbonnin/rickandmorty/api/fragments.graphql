@@ -1,0 +1,44 @@
+fragment CharacterDetails on Character {
+    id,
+    name,
+    status,
+    species,
+    type,
+    gender,
+    origin {
+        id,
+        name,
+        type,
+        dimension
+    },
+    location {
+        id,
+        name,
+        type,
+        dimension
+    },
+    image,
+    episode {
+        id,
+        name,
+        air_date,
+        episode
+    }
+}
+
+fragment CharacterItem on Character {
+    id,
+    name
+}
+
+fragment CharactersList on Characters {
+    info {
+        count,
+        pages,
+        next,
+        prev
+    },
+    results {
+        ...CharacterItem
+    }
+}

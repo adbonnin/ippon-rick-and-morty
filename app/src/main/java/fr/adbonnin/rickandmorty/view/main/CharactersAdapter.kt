@@ -7,15 +7,15 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import fr.adbonnin.rickandmorty.R
+import fr.adbonnin.rickandmorty.api.fragment.CharacterItem
 import fr.adbonnin.rickandmorty.databinding.ItemCharacterBinding
-import fr.adbonnin.rickandmorty.model.Character
 
 class CharactersAdapter(
     private val selectCharacterListener: OnSelectCharacterListener
-) : PagingDataAdapter<Character, CharacterViewHolder>(DIFF_CALLBACK), View.OnClickListener {
+) : PagingDataAdapter<CharacterItem, CharacterViewHolder>(DIFF_CALLBACK), View.OnClickListener {
 
     fun interface OnSelectCharacterListener {
-        fun onSelectCharacter(character: Character)
+        fun onSelectCharacter(character: CharacterItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
@@ -31,16 +31,16 @@ class CharactersAdapter(
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.card_view -> selectCharacterListener.onSelectCharacter(view.tag as Character)
+            R.id.card_view -> selectCharacterListener.onSelectCharacter(view.tag as CharacterItem)
         }
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Character>() {
-            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean =
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<CharacterItem>() {
+            override fun areItemsTheSame(oldItem: CharacterItem, newItem: CharacterItem): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean =
+            override fun areContentsTheSame(oldItem: CharacterItem, newItem: CharacterItem): Boolean =
                 oldItem == newItem
         }
     }
@@ -48,7 +48,7 @@ class CharactersAdapter(
 
 class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(character: Character?, listener: View.OnClickListener) {
+    fun bind(character: CharacterItem?, listener: View.OnClickListener) {
         binding.name.text = character?.name ?: ""
         binding.cardView.tag = character
         binding.cardView.setOnClickListener(listener)
