@@ -17,8 +17,8 @@ class CharactersRepository(
         fun getInstance() = CharactersRepository()
     }
 
-    fun letCharactersFlow(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<Character>> {
-        return Pager(pagingConfig, null, { CharacterPagingSource(client) }).flow
+    fun letCharactersFlow(characterFilter: CharacterFilter, pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<Character>> {
+        return Pager(pagingConfig, null, { CharacterPagingSource(client, characterFilter) }).flow
     }
 
     private fun getDefaultPageConfig(): PagingConfig {

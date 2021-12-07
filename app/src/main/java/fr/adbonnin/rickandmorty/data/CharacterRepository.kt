@@ -9,7 +9,10 @@ class CharacterRepository {
 
     private val apiService = RickAndMortyApiService.create()
 
-    suspend fun findByPage(page: Int): Page<Character> {
+    suspend fun findByPage(
+        page: Int,
+        filter: CharacterFilter
+    ): Page<Character> {
         val query = """
             query {
               characters(page: $page) {
@@ -28,7 +31,7 @@ class CharacterRepository {
         """
 
         val response = apiService.query(ApiRequest(query))
-        return response.data?.characters ?: Page()
+        return response.data.characters ?: Page()
     }
 
     suspend fun findById(id: Int): Character? {
@@ -65,6 +68,6 @@ class CharacterRepository {
             """
 
         val response = apiService.query(ApiRequest(query))
-        return response.data?.character
+        return response.data.character
     }
 }

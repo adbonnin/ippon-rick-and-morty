@@ -8,9 +8,11 @@ import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
 import fr.adbonnin.rickandmorty.model.Character
 import fr.adbonnin.rickandmorty.view.detail.DetailActivity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 private const val TAG = "ListActivity"
 
+@ExperimentalCoroutinesApi
 class ListActivity : AppCompatActivity() {
 
     private lateinit var listFragment: ListFragment

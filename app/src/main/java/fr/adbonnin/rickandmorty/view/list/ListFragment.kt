@@ -9,12 +9,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.adbonnin.rickandmorty.R
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 private const val TAG = "ListFragment"
 
+@ExperimentalCoroutinesApi
 class ListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
@@ -43,7 +44,7 @@ class ListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.fetchCharacters().distinctUntilChanged().collectLatest {
+            viewModel.characters.collectLatest {
                 adapter.submitData(it)
             }
         }
