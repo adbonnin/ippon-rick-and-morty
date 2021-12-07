@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.view.list
+package fr.adbonnin.rickandmorty.view.main
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -6,9 +6,9 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.view.list.ListFilterDialogFragment.OnApplyListener
+import fr.adbonnin.rickandmorty.view.main.CharacterFilterDialogFragment.OnApplyListener
 
-class ListFilterDialogFragment : DialogFragment() {
+class CharacterFilterDialogFragment : DialogFragment() {
 
     var applyListener = OnApplyListener { _, _, _, _ -> }
 
@@ -20,7 +20,7 @@ class ListFilterDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(activity)
-            .setView(activity?.layoutInflater?.inflate(R.layout.dialog_list_filter, null))
+            .setView(activity?.layoutInflater?.inflate(R.layout.dialog_character_filter, null))
             .setPositiveButton(getString(R.string.validate_button)) { dialog, which -> applyListener.onApply(dialog, which, arrayListOf(), arrayListOf()) }
             .setNegativeButton(getString(R.string.cancel_button), cancelListener)
             .setTitle(getString(R.string.filters_title))

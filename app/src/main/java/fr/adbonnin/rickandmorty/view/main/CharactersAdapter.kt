@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.view.list
+package fr.adbonnin.rickandmorty.view.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.databinding.ItemListBinding
+import fr.adbonnin.rickandmorty.databinding.ItemCharacterBinding
 import fr.adbonnin.rickandmorty.model.Character
 
 class CharactersAdapter(
@@ -46,7 +46,7 @@ class CharactersAdapter(
     }
 }
 
-class CharacterViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(character: Character?, listener: View.OnClickListener) {
         binding.name.text = character?.name ?: ""
@@ -56,8 +56,8 @@ class CharacterViewHolder(private val binding: ItemListBinding) : RecyclerView.V
 
     companion object {
         fun create(parent: ViewGroup): CharacterViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-            val binding = ItemListBinding.bind(view)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
+            val binding = ItemCharacterBinding.bind(view)
             return CharacterViewHolder(binding)
         }
     }

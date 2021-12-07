@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RickAndMorty">
         <activity
-            android:name=".view.list.ListActivity"
+            android:name=".view.main.ListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.detail.DetailActivity" />
+        <activity android:name=".view.details.DetailsActivity" />
     </application>
 
 </manifest>

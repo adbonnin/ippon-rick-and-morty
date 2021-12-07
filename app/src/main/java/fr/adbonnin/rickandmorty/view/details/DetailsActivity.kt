@@ -1,10 +1,10 @@
-package fr.adbonnin.rickandmorty.view.detail
+package fr.adbonnin.rickandmorty.view.details
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class DetailActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,15 +6,15 @@ import fr.adbonnin.rickandmorty.model.Character
 import retrofit2.HttpException
 import java.io.IOException
 
-class CharacterPagingSource(
-    private val client: CharacterRepository,
-    private val filter: CharacterFilter,
+class GetCharactersPagingSource(
+    private val repository: CharactersRepository,
+    private val filter: GetCharactersFilter,
 ) : PagingSource<Int, Character>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val pageNumber = params.key ?: CharactersRepository.DEFAULT_PAGE_INDEX
         return try {
-            val page = client.findByPage(pageNumber, filter)
+            val page = repository.getCharacters(pageNumber, filter)
             LoadResult.Page(page.results, page.info.prev, page.info.next)
         }
         catch (exception: IOException) {

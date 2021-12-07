@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.list.ListActivity">
+    tools:context=".view.main.ListActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/list_fragment"
-        android:name="fr.adbonnin.rickandmorty.view.list.ListFragment"
+        android:name="fr.adbonnin.rickandmorty.view.main.ListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

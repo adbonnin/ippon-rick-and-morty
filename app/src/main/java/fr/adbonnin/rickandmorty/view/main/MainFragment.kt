@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.view.list
+package fr.adbonnin.rickandmorty.view.main
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -20,7 +20,7 @@ class ListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CharactersAdapter
-    private lateinit var viewModel: CharactersViewModel
+    private lateinit var viewModel: MainViewModel
 
     var selectCharacterListener = CharactersAdapter.OnSelectCharacterListener { }
 
@@ -30,13 +30,13 @@ class ListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = defaultViewModelProviderFactory.create(CharactersViewModel::class.java)
+        viewModel = defaultViewModelProviderFactory.create(MainViewModel::class.java)
         adapter = CharactersAdapter(selectCharacterListener)
 
         recyclerView = view.findViewById(R.id.list_recycler_view)
@@ -63,8 +63,8 @@ class ListFragment : Fragment() {
     }
 
     private fun showSortAndFilterDialog(): Boolean {
-        val dialog = ListFilterDialogFragment()
-        dialog.applyListener = ListFilterDialogFragment.OnApplyListener(::onApplyFilter)
+        val dialog = CharacterFilterDialogFragment()
+        dialog.applyListener = CharacterFilterDialogFragment.OnApplyListener(::onApplyFilter)
         dialog.cancelListener = DialogInterface.OnClickListener(::onCancelFilter)
         dialog.show(childFragmentManager, "ListFilterDialogFragment")
         return true

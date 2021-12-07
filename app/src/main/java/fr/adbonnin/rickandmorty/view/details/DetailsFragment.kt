@@ -1,4 +1,4 @@
-package fr.adbonnin.rickandmorty.view.detail
+package fr.adbonnin.rickandmorty.view.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
-import fr.adbonnin.rickandmorty.data.CharacterRepository
-import fr.adbonnin.rickandmorty.view.detail.DetailFragment.OnCharacterErrorListener
+import fr.adbonnin.rickandmorty.data.CharactersRepository
+import fr.adbonnin.rickandmorty.view.details.DetailFragment.OnCharacterErrorListener
 import kotlinx.coroutines.*
 
 private const val DEFAULT_CHARACTER_ID = -1
@@ -35,7 +35,7 @@ class DetailFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_details, container, false)
         name = view.findViewById(R.id.name)
         image = view.findViewById(R.id.image)
         return view
@@ -62,7 +62,7 @@ class DetailFragment : Fragment() {
 
     private fun updateDetailForCharacter(characterId: Int) {
         coroutineJob = CoroutineScope(Dispatchers.IO).launch {
-            val character = CharacterRepository().findById(characterId)
+            val character = CharactersRepository().getCharacterById(characterId)
 
             withContext(Dispatchers.Main) {
                 if (character == null) {
