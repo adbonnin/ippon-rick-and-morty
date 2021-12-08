@@ -24,7 +24,7 @@ class ListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         listFragment = supportFragmentManager.findFragmentById(R.id.list_fragment) as ListFragment
-        listFragment.selectCharacterListener = CharactersAdapter.OnSelectCharacterListener(::onSelectCharacter)
+        listFragment.selectCharacterListener = CharacterAdapter.OnSelectCharacterListener(::onSelectCharacter)
     }
 
     private fun onSelectCharacter(character: CharacterItem) {

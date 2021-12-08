@@ -14,7 +14,7 @@ class GetCharactersPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterItem> {
         val pageNumber = params.key ?: CharacterRepository.DEFAULT_PAGE_INDEX
         return try {
-            val characters = repository.getCharacters(pageNumber)
+            val characters = repository.getCharactersList(pageNumber)
             val info = characters?.info
             val result = characters?.results?.mapNotNull { it?.fragments?.characterItem } ?: emptyList()
             LoadResult.Page(result, info?.prev, info?.next)

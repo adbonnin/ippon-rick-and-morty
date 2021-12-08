@@ -10,7 +10,7 @@ import fr.adbonnin.rickandmorty.R
 import fr.adbonnin.rickandmorty.api.fragment.CharacterItem
 import fr.adbonnin.rickandmorty.databinding.ItemCharacterBinding
 
-class CharactersAdapter(
+class CharacterAdapter(
     private val selectCharacterListener: OnSelectCharacterListener
 ) : PagingDataAdapter<CharacterItem, CharacterViewHolder>(DIFF_CALLBACK), View.OnClickListener {
 

@@ -69,8 +69,4 @@ dependencies {
 
 apollo {
     generateKotlinModels.set(true)
-
-    customTypeMapping = [
-            "Character": "fr.adbonnin.rickandmorty.model.Character"
-    ]
 }

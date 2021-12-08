@@ -19,10 +19,10 @@ private const val TAG = "ListFragment"
 class ListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CharactersAdapter
+    private lateinit var adapter: CharacterAdapter
     private lateinit var viewModel: MainViewModel
 
-    var selectCharacterListener = CharactersAdapter.OnSelectCharacterListener { }
+    var selectCharacterListener = CharacterAdapter.OnSelectCharacterListener { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = defaultViewModelProviderFactory.create(MainViewModel::class.java)
-        adapter = CharactersAdapter(selectCharacterListener)
+        adapter = CharacterAdapter(selectCharacterListener)
 
         recyclerView = view.findViewById(R.id.list_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)

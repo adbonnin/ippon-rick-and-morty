@@ -62,7 +62,7 @@ class DetailFragment : Fragment() {
 
     private fun updateDetailForCharacter(characterId: String) {
         coroutineJob = CoroutineScope(Dispatchers.IO).launch {
-            val character = CharacterRepository().getCharacterById(characterId)
+            val character = CharacterRepository().getCharacterDetails(characterId)
 
             withContext(Dispatchers.Main) {
                 if (character == null) {

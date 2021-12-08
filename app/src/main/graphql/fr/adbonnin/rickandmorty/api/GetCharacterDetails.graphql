@@ -1,4 +1,4 @@
-query GetCharacter($id:ID!) {
+query GetCharacterDetails($id:ID!) {
     character(id: $id) {
         ...CharacterDetails
     }

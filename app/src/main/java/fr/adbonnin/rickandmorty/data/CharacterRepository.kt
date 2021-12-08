@@ -5,8 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.await
-import fr.adbonnin.rickandmorty.api.GetCharacterQuery
-import fr.adbonnin.rickandmorty.api.GetCharactersQuery
+import fr.adbonnin.rickandmorty.api.GetCharacterDetailsQuery
+import fr.adbonnin.rickandmorty.api.GetCharactersListQuery
 import fr.adbonnin.rickandmorty.api.RickAndMortyApi
 import fr.adbonnin.rickandmorty.api.fragment.CharacterDetails
 import fr.adbonnin.rickandmorty.api.fragment.CharacterItem
@@ -24,13 +24,13 @@ class CharacterRepository(
         fun getInstance() = CharacterRepository()
     }
 
-    suspend fun getCharacters(page: Int): CharactersList? {
-        val response = rickAndMortyApiClient.query(GetCharactersQuery(page)).await()
+    suspend fun getCharactersList(page: Int): CharactersList? {
+        val response = rickAndMortyApiClient.query(GetCharactersListQuery(page)).await()
         return response.data?.characters?.fragments?.charactersList
     }
 
-    suspend fun getCharacterById(id: String): CharacterDetails? {
-        val response = rickAndMortyApiClient.query(GetCharacterQuery(id)).await()
+    suspend fun getCharacterDetails(id: String): CharacterDetails? {
+        val response = rickAndMortyApiClient.query(GetCharacterDetailsQuery(id)).await()
         return response.data?.character?.fragments?.characterDetails
     }
 
