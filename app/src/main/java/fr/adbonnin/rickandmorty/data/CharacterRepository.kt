@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
 import fr.adbonnin.rickandmorty.api.GetCharacterDetailsQuery
 import fr.adbonnin.rickandmorty.api.GetCharactersListQuery
@@ -24,8 +25,10 @@ class CharacterRepository(
         fun getInstance() = CharacterRepository()
     }
 
-    suspend fun getCharactersList(page: Int): CharactersList? {
-        val response = rickAndMortyApiClient.query(GetCharactersListQuery(page)).await()
+    suspend fun getCharactersList(page: Int, filter: GetCharactersListFilter): CharactersList? {
+        val gender = filter.gender.value
+        val status = filter.status.value
+        val response = rickAndMortyApiClient.query(GetCharactersListQuery(page, Input.fromNullable(gender), Input.fromNullable(status))).await()
         return response.data?.characters?.fragments?.charactersList
     }
 
@@ -34,7 +37,7 @@ class CharacterRepository(
         return response.data?.character?.fragments?.characterDetails
     }
 
-    fun getCharactersFlow(filter: GetCharactersFilter, pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<CharacterItem>> {
+    fun getCharactersFlow(filter: GetCharactersListFilter, pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<CharacterItem>> {
         return Pager(pagingConfig, null, { GetCharactersPagingSource(this, filter) }).flow
     }
 

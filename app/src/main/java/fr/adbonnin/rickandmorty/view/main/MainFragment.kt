@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.adbonnin.rickandmorty.R
+import fr.adbonnin.rickandmorty.data.GetCharactersListFilter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -66,12 +67,14 @@ class ListFragment : Fragment() {
         val dialog = CharacterFilterDialogFragment()
         dialog.applyListener = CharacterFilterDialogFragment.OnApplyListener(::onApplyFilter)
         dialog.cancelListener = DialogInterface.OnClickListener(::onCancelFilter)
+        dialog.filter = viewModel.filter.value
         dialog.show(childFragmentManager, "ListFilterDialogFragment")
         return true
     }
 
-    private fun onApplyFilter(dialog: DialogInterface, which: Int, filterByGenre: List<String>, filterByStatus: List<String>) {
-        Log.i(TAG, "onApplyFilter; filterByGenre: $filterByGenre, filterByStatus: $filterByStatus")
+    private fun onApplyFilter(dialog: DialogInterface, which: Int, filter: GetCharactersListFilter) {
+        Log.i(TAG, "onApplyFilter; filter: $filter")
+        viewModel.filter.value = filter
     }
 
     private fun onCancelFilter(dialog: DialogInterface, which: Int) {

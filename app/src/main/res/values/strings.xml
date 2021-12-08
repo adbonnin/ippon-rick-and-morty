@@ -11,5 +11,11 @@
     <string name="error_character_not_found">Character doesn\'t exist</string>
     <string name="error_fail_load_character">Fail to load character</string>
     <string name="error_fail_to_load_characters">Fail to load character list</string>
-    <string name="loadling_label">Loading</string>
+    <string name="loading_label">Loading</string>
+    <string name="all_chip">All</string>
+    <string name="alive_chip">Alive</string>
+    <string name="dead_chip">Dead</string>
+    <string name="male_chip">Male</string>
+    <string name="female_chip">Female</string>
+    <string name="unknown_chip">unknown</string>
 </resources>

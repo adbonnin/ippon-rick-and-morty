@@ -1,5 +1,5 @@
-query GetCharactersList($page:Int!) {
-    characters(page: $page) {
+query GetCharactersList($page:Int!, $gender:String, $status:String) {
+    characters(page: $page, filter: {gender: $gender, status: $status}) {
         ...CharactersList
     }
 }
