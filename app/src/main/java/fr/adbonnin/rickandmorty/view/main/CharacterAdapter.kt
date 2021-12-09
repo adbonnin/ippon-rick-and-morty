@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import fr.adbonnin.rickandmorty.R
 import fr.adbonnin.rickandmorty.api.fragment.CharacterItem
 import fr.adbonnin.rickandmorty.databinding.ItemCharacterBinding
@@ -52,6 +53,11 @@ class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerV
         binding.name.text = character?.name ?: ""
         binding.cardView.tag = character
         binding.cardView.setOnClickListener(listener)
+
+        Picasso.get()
+            .load(character?.image)
+            .placeholder(R.drawable.im_character_placeholder)
+            .into(binding.image)
     }
 
     companion object {

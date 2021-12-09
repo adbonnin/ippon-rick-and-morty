@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.chip.ChipGroup
+import com.google.common.collect.ImmutableBiMap
 import fr.adbonnin.rickandmorty.R
 import fr.adbonnin.rickandmorty.data.GetCharactersListFilter
 import fr.adbonnin.rickandmorty.data.GetCharactersListFilter.Gender
@@ -29,28 +30,28 @@ class CharacterFilterDialogFragment : DialogFragment() {
         val view = layoutInflater.inflate(R.layout.dialog_character_filter, null)
 
         view.findViewById<ChipGroup>(R.id.gender_chips).apply {
-            check(toGenderId(filter.gender))
+            check(GENDER_IDS[filter.gender] ?: R.id.all_gender)
 
             setOnCheckedChangeListener { group, checkedId ->
                 if (checkedId == View.NO_ID) {
-                    group.check(toGenderId(filter.gender))
+                    group.check(GENDER_IDS[filter.gender] ?: R.id.all_gender)
                 }
                 else {
-                    val gender = toGender(checkedId)
+                    val gender = GENDER_IDS.inverse()[checkedId] ?: Gender.ALL
                     filter = filter.copy(gender = gender)
                 }
             }
         }
 
         view.findViewById<ChipGroup>(R.id.status_chips).apply {
-            check(toStatusId(filter.status))
+            check(STATUS_IDS[filter.status] ?: R.id.all_status)
 
             setOnCheckedChangeListener { group, checkedId ->
                 if (checkedId == View.NO_ID) {
-                    group.check(toStatusId(filter.status))
+                    group.check(STATUS_IDS[filter.status] ?: R.id.all_status)
                 }
                 else {
-                    val status = toStatus(checkedId)
+                    val status = STATUS_IDS.inverse()[checkedId] ?: Status.ALL
                     filter = filter.copy(status = status)
                 }
             }
@@ -64,31 +65,17 @@ class CharacterFilterDialogFragment : DialogFragment() {
             .create()
     }
 
-    private fun toGender(id: Int): Gender = when (id) {
-        R.id.male_gender -> Gender.MALE
-        R.id.female_gender -> Gender.FEMALE
-        R.id.unknown_gender -> Gender.UNKNOWN
-        else -> Gender.ALL
-    }
+    companion object {
+        val GENDER_IDS: ImmutableBiMap<Gender, Int> = ImmutableBiMap.builder<Gender, Int>()
+            .put(Gender.MALE, R.id.male_gender)
+            .put(Gender.FEMALE, R.id.female_gender)
+            .put(Gender.UNKNOWN, R.id.unknown_gender)
+            .build()
 
-    private fun toGenderId(gender: Gender): Int = when (gender) {
-        Gender.MALE -> R.id.male_gender
-        Gender.FEMALE -> R.id.female_gender
-        Gender.UNKNOWN -> R.id.unknown_gender
-        else -> R.id.all_gender
-    }
-
-    private fun toStatus(id: Int): Status = when (id) {
-        R.id.alive_status -> Status.ALIVE
-        R.id.dead_status -> Status.DEAD
-        R.id.unknown_status -> Status.UNKNOWN
-        else -> Status.ALL
-    }
-
-    private fun toStatusId(gender: Status): Int = when (gender) {
-        Status.ALIVE -> R.id.alive_status
-        Status.DEAD -> R.id.dead_status
-        Status.UNKNOWN -> R.id.unknown_status
-        else -> R.id.all_status
+        val STATUS_IDS: ImmutableBiMap<Status, Int> = ImmutableBiMap.builder<Status, Int>()
+            .put(Status.ALIVE, R.id.alive_status)
+            .put(Status.DEAD, R.id.dead_status)
+            .put(Status.UNKNOWN, R.id.unknown_status)
+            .build()
     }
 }

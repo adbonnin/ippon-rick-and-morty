@@ -28,7 +28,14 @@ fragment CharacterDetails on Character {
 
 fragment CharacterItem on Character {
     id,
-    name
+    name,
+    image,
+    location {
+        name
+    },
+    episode {
+        name
+    }
 }
 
 fragment CharactersList on Characters {
