@@ -9,8 +9,8 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val fragment = DetailFragment.newInstance()
-        fragment.characterErrorListener = DetailFragment.OnCharacterErrorListener(::characterErrorListener)
+        val fragment = DetailsFragment.newInstance()
+        fragment.characterErrorListener = DetailsFragment.OnCharacterErrorListener(::characterErrorListener)
 
         supportFragmentManager.beginTransaction()
             .replace(android.R.id.content, fragment)

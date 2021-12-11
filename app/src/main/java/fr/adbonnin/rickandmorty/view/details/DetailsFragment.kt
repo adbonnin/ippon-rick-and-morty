@@ -11,12 +11,10 @@ import com.squareup.picasso.Picasso
 import fr.adbonnin.rickandmorty.App
 import fr.adbonnin.rickandmorty.R
 import fr.adbonnin.rickandmorty.data.CharacterRepository
-import fr.adbonnin.rickandmorty.view.details.DetailFragment.OnCharacterErrorListener
+import fr.adbonnin.rickandmorty.view.details.DetailsFragment.OnCharacterErrorListener
 import kotlinx.coroutines.*
 
-private const val DEFAULT_CHARACTER_ID = "-1"
-
-class DetailFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
     var characterErrorListener = OnCharacterErrorListener { }
 
@@ -26,8 +24,7 @@ class DetailFragment : Fragment() {
     private lateinit var coroutineJob: Job
 
     companion object {
-
-        fun newInstance() = DetailFragment()
+        fun newInstance() = DetailsFragment()
     }
 
     fun interface OnCharacterErrorListener {
@@ -46,21 +43,22 @@ class DetailFragment : Fragment() {
 
         val intent = activity?.intent
         val characterId = if (intent?.hasExtra(App.EXTRA_CHARACTER_ID) == true) {
-            intent.getStringExtra(App.EXTRA_CHARACTER_ID) ?: DEFAULT_CHARACTER_ID
+            intent.getStringExtra(App.EXTRA_CHARACTER_ID)
         }
         else {
-            DEFAULT_CHARACTER_ID
+            null
         }
 
-        if (characterId == DEFAULT_CHARACTER_ID) {
+        updateDetail(characterId)
+    }
+
+    fun updateDetail(characterId: String?) {
+
+        if (characterId == null) {
             characterErrorListener.onCharacterError(getString(R.string.error_require_character_id))
             return
         }
 
-        updateDetailForCharacter(characterId)
-    }
-
-    private fun updateDetailForCharacter(characterId: String) {
         coroutineJob = CoroutineScope(Dispatchers.IO).launch {
             val character = CharacterRepository().getCharacterDetails(characterId)
 

@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 private const val TAG = "ListFragment"
 
 @ExperimentalCoroutinesApi
-class ListFragment : Fragment() {
+class MainFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CharacterAdapter

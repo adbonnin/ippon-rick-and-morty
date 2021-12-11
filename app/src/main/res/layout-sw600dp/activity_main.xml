@@ -8,7 +8,15 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/list_fragment"
         android:name="fr.adbonnin.rickandmorty.view.main.MainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/details_fragment"
+        android:name="fr.adbonnin.rickandmorty.view.details.DetailsFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6" />
 
 </LinearLayout>
