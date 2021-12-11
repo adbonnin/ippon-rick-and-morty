@@ -30,12 +30,8 @@ fragment CharacterItem on Character {
     id,
     name,
     image,
-    location {
-        name
-    },
-    episode {
-        name
-    }
+    status,
+    species
 }
 
 fragment CharactersList on Characters {

@@ -32,7 +32,7 @@ class CharacterAdapter(
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.card_view -> selectCharacterListener.onSelectCharacter(view.tag as CharacterItem)
+            R.id.item_view -> selectCharacterListener.onSelectCharacter(view.tag as CharacterItem)
         }
     }
 
@@ -50,9 +50,14 @@ class CharacterAdapter(
 class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(character: CharacterItem?, listener: View.OnClickListener) {
+        val subtitle = arrayListOf(character?.status, character?.species).asSequence()
+            .filterNotNull()
+            .joinToString(" - ")
+
         binding.name.text = character?.name ?: ""
-        binding.cardView.tag = character
-        binding.cardView.setOnClickListener(listener)
+        binding.subtitle.text = subtitle
+        binding.itemView.tag = character
+        binding.itemView.setOnClickListener(listener)
 
         Picasso.get()
             .load(character?.image)
