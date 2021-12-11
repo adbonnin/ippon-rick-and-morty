@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import fr.adbonnin.rickandmorty.R
 import fr.adbonnin.rickandmorty.data.GetCharactersListFilter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,6 +24,7 @@ class ListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CharacterAdapter
     private lateinit var viewModel: MainViewModel
+    private lateinit var refreshLayout: SwipeRefreshLayout
 
     var selectCharacterListener = CharacterAdapter.OnSelectCharacterListener { }
 
@@ -44,6 +47,16 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
+        refreshLayout = view.findViewById(R.id.refreshLayout)
+        refreshLayout.setOnRefreshListener(::onRefreshCharacters)
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadState ->
+                val refresh = loadState.refresh
+                refreshLayout.isRefreshing = refresh is LoadState.Loading
+            }
+        }
+
         lifecycleScope.launch {
             viewModel.characters.collectLatest {
                 adapter.submitData(it)
@@ -61,6 +74,10 @@ class ListFragment : Fragment() {
             R.id.action_sort_and_filter -> showSortAndFilterDialog()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun onRefreshCharacters() {
+        adapter.refresh()
     }
 
     private fun showSortAndFilterDialog(): Boolean {

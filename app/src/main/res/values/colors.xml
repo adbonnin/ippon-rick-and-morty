@@ -12,6 +12,7 @@
     <color name="red_dead">#d63d2e</color>
     <color name="gray_unknown">#9e9e9e</color>
 
-    <color name="gray_light">#4f5660</color>
+    <color name="gray_light">#e5e5e5</color>
+    <color name="gray">#4f5660</color>
     <color name="gray_dark">#060606</color>
 </resources>

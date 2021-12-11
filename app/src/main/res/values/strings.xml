@@ -17,5 +17,5 @@
     <string name="dead_chip">Dead</string>
     <string name="male_chip">Male</string>
     <string name="female_chip">Female</string>
-    <string name="unknown_chip">unknown</string>
+    <string name="unknown_chip">Unknown</string>
 </resources>
