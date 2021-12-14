@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="ShapeAppearance.App.CircleImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="DetailsTableItem">
+        <item name="android:padding">3dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="DetailsTableHeader" parent="@style/DetailsTableItem">
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

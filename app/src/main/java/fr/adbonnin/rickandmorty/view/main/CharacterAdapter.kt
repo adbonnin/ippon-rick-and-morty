@@ -54,8 +54,8 @@ class CharacterViewHolder(private val binding: ItemCharacterBinding) : RecyclerV
             .filterNotNull()
             .joinToString(" - ")
 
-        binding.name.text = character?.name ?: ""
-        binding.subtitle.text = subtitle
+        binding.nameText.text = character?.name ?: ""
+        binding.subtitleText.text = subtitle
         binding.itemView.tag = character
         binding.itemView.setOnClickListener(listener)
 

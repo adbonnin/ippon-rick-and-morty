@@ -18,7 +18,11 @@ class DetailsFragment : Fragment() {
 
     var characterErrorListener = OnCharacterErrorListener { }
 
-    private lateinit var name: TextView
+    private lateinit var detailsLayout: View
+    private lateinit var nameText: TextView
+    private lateinit var statusText: TextView
+    private lateinit var speciesText: TextView
+    private lateinit var genderText: TextView
     private lateinit var image: ImageView
 
     private lateinit var coroutineJob: Job
@@ -33,8 +37,14 @@ class DetailsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
-        name = view.findViewById(R.id.name)
+        detailsLayout = view.findViewById(R.id.details_layout)
+        nameText = view.findViewById(R.id.name_text)
+        statusText = view.findViewById(R.id.status_text)
+        speciesText = view.findViewById(R.id.species_text)
+        genderText = view.findViewById(R.id.gender_text)
         image = view.findViewById(R.id.image)
+
+        detailsLayout.visibility = View.GONE
         return view
     }
 
@@ -64,14 +74,19 @@ class DetailsFragment : Fragment() {
 
             withContext(Dispatchers.Main) {
                 if (character == null) {
+                    detailsLayout.visibility = View.GONE
                     characterErrorListener.onCharacterError(getString(R.string.error_character_not_found))
                 }
                 else {
+                    detailsLayout.visibility = View.VISIBLE
                     Picasso.get()
                         .load(character.image)
                         .into(image)
 
-                    name.text = character.name
+                    nameText.text = character.name
+                    statusText.text = character.status
+                    speciesText.text = character.species
+                    genderText.text = character.gender
                 }
             }
         }

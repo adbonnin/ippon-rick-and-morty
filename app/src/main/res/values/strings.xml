@@ -18,4 +18,6 @@
     <string name="male_chip">Male</string>
     <string name="female_chip">Female</string>
     <string name="unknown_chip">Unknown</string>
+    <string name="species_label">Species</string>
+    <string name="type_label">Type</string>
 </resources>

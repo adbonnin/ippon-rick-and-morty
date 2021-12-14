@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Rick and Morty</string>
+    <string name="validate_button">Valider</string>
+    <string name="cancel_button">Annuler</string>
+    <string name="gender_label">Genre</string>
+    <string name="status_label">Statut</string>
+    <string name="sort_and_filter_title">Trier et filtrer</string>
+    <string name="unknown_label">inconnu</string>
+    <string name="filters_title">Filtres</string>
+    <string name="error_require_character_id">L\'ID du personnage est introuvable</string>
+    <string name="error_character_not_found">Le personnage n\'existe pas</string>
+    <string name="error_fail_load_character">Une erreur est survenue lors du chargement du personnage</string>
+    <string name="error_fail_to_load_characters">Le chargement de la liste des personnages à échoué</string>
+    <string name="loading_label">Chargement</string>
+    <string name="all_chip">Tout</string>
+    <string name="alive_chip">Vivant</string>
+    <string name="dead_chip">Décédé</string>
+    <string name="male_chip">Homme</string>
+    <string name="female_chip">Femme</string>
+    <string name="unknown_chip">Inconnu</string>
+    <string name="species_label">Espèce</string>
+    <string name="type_label">Type</string>
+</resources>
